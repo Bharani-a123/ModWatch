@@ -1,0 +1,99 @@
+{
+  "$schema": "https://developers.reddit.com/schema/config-file.v1.json",
+  "name": "modcoordinator",
+  "post": {
+    "dir": "dist/client",
+    "entrypoints": {
+      "default": {
+        "entry": "dashboard.html",
+        "height": "tall"
+      }
+    }
+  },
+  "server": {
+    "dir": "dist/server",
+    "entry": "index.cjs"
+  },
+  "menu": {
+    "items": [
+      {
+        "label": "Remove (ModWatch)",
+        "description": "Remove this item with an action lock to avoid duplicate mod actions.",
+        "location": "comment",
+        "forUserType": "moderator",
+        "endpoint": "/internal/menu/remove-thing"
+      },
+      {
+        "label": "Remove (ModWatch)",
+        "description": "Remove this item with an action lock to avoid duplicate mod actions.",
+        "location": "post",
+        "forUserType": "moderator",
+        "endpoint": "/internal/menu/remove-thing"
+      },
+      {
+        "label": "Approve (ModWatch)",
+        "description": "Approve this item with an action lock to avoid duplicate mod actions.",
+        "location": "comment",
+        "forUserType": "moderator",
+        "endpoint": "/internal/menu/approve-thing"
+      },
+      {
+        "label": "Approve (ModWatch)",
+        "description": "Approve this item with an action lock to avoid duplicate mod actions.",
+        "location": "post",
+        "forUserType": "moderator",
+        "endpoint": "/internal/menu/approve-thing"
+      },
+      {
+        "label": "Warn author",
+        "description": "Log a warning for this item's author.",
+        "location": "comment",
+        "forUserType": "moderator",
+        "endpoint": "/internal/menu/warn-user"
+      },
+      {
+        "label": "Warn author",
+        "description": "Log a warning for this item's author.",
+        "location": "post",
+        "forUserType": "moderator",
+        "endpoint": "/internal/menu/warn-user"
+      },
+      {
+        "label": "Open ModWatch dashboard",
+        "description": "Open the shared mod coordination dashboard post.",
+        "location": "subreddit",
+        "forUserType": "moderator",
+        "endpoint": "/internal/menu/open-dashboard"
+      }
+    ]
+  },
+  "forms": {
+    "warnUser": "/internal/form/warn-user-submit"
+  },
+  "triggers": {
+    "onAppInstall": "/internal/triggers/on-app-install",
+    "onAppUpgrade": "/internal/triggers/on-app-upgrade",
+    "onModAction": "/internal/triggers/on-mod-action"
+  },
+  "scheduler": {
+    "tasks": {
+      "coverage-check": {
+        "endpoint": "/internal/scheduler/coverage-check",
+        "cron": "*/15 * * * *"
+      },
+      "incident-prune": {
+        "endpoint": "/internal/scheduler/incident-prune",
+        "cron": "0 3 * * *"
+      }
+    }
+  },
+  "scripts": {
+    "build": "vite build",
+    "dev": "vite build --watch"
+  },
+  "permissions": {
+    "reddit": true,
+    "redis": true,
+    "realtime": true
+  }
+}
